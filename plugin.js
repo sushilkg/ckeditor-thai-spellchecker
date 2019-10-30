@@ -28,8 +28,7 @@ CKEDITOR.plugins.add('spellchecker', {
                     return;
                 }
 
-                let selection = editor.getSelection();
-                let textToCheck = selection.getSelectedText();
+                let textToCheck = editor.document.getBody().getText();
 
                 if (!textToCheck.length) {
                     return;
@@ -40,7 +39,7 @@ CKEDITOR.plugins.add('spellchecker', {
                 if (checkResult.length > 0) {
                     let editor_data = editor.getData();
                     for (let i = 0; i < checkResult.length; i++) {
-                        let wrongWord = selection.getSelectedText().slice(checkResult[i][0], checkResult[i][1]);
+                        let wrongWord = textToCheck.slice(checkResult[i][0], checkResult[i][1]);
                         wrongWord = wrongWord.replace(/(\r\n|\n|\r)/gm, "");
                         editor_data = editor_data.replace(wrongWord, '<span class="wrongWord">' + wrongWord + '</span>');
                     }
